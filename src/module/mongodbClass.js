@@ -1,8 +1,7 @@
 import { MongoClient } from 'mongodb';
 import { nameCollection, url } from '../Token&url'
 import { settingResponse } from '../function/settingResponse';
-import { settingDataForCron } from '../function/settingData';
-
+import { Cron } from '../function/CronFunc';
 
 export default class Mongodb {
 
@@ -80,32 +79,3 @@ export default class Mongodb {
         });
     }
 }
-
-function Cron(cron, botObj, response, self) {
-    let cronTime =  settingDataForCron(response[0].date[0]);
-    cron.update(
-        `dateCron${botObj.id}`,
-         cronTime,
-        () => {
-            let sequence = {
-                year: new Date().getFullYear(),
-                month: new Date().getMonth() + 1,
-                day: new Date().getDate(),
-                hours: new Date().getHours(),
-                minutes: new Date().getMinutes(),
-                seconds: new Date().getSeconds(),
-            };
-
-            let time = new Date(
-                sequence.year,
-                sequence.month,
-                sequence.day,
-                sequence.hours,
-                sequence.minutes,
-                sequence.seconds).getTime()/1000;
-
-            botObj.bot.sendMessage(botObj.id, settingResponse([response[0]]));
-            self.Delete({time: {$lte: time}}, botObj)
-        });
-}
-
