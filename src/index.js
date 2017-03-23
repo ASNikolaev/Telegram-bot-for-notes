@@ -49,8 +49,10 @@ function handlerCommand(botObj, cron) {
             myBotClass.deleteNote(command[1], mongodb, botObj, cron);
             break;
         default:
-            if (myBotClass.ActiveAction !== undefined && nospace(command[0]).toLowerCase() === 'yes'){
-                myBotClass.ActiveAction.func(botObj.msg.text, mongodb, botObj, cron, true)
+            if (myBotClass.ActiveAction !== undefined){
+                if (nospace(command[0]).toLowerCase() === 'yes') {
+                    myBotClass.ActiveAction.func(botObj.msg.text, mongodb, botObj, cron, true)
+                }
             } else {
                 botObj.bot.sendMessage(botObj.id, 'invalid command');
             }
