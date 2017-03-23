@@ -2,7 +2,7 @@ import TelegramBot from 'node-telegram-bot-api';
 import { CronJob } from 'cron';
 import CronJobManager from 'cron-job-manager';
 import { MongoClient } from 'mongodb';
-import { token as myBotToken} from './Token&url'
+import { token } from './Token&url'/// this is token your telegram bot
 
 import Mongodb from './module/mongodbClass';
 import MyBotClass from './module/MyBotClass';
@@ -10,7 +10,6 @@ import { nospace } from './function/settingData'
 import { settingObjectForReturn } from './function/settingResponse';
 
 
-const token = myBotToken; /// this is token your telegram bot
 const bot = new TelegramBot(token, {
     polling: true
 });
